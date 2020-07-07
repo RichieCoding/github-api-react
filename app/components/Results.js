@@ -7,18 +7,17 @@ import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 
 class Results extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    winner: null,
+    loser: null,
+    error: null,
+    loading: true,
+  };
 
-    this.state = {
-      winner: null,
-      loser: null,
-      error: null,
-      loading: true,
-    };
-  }
   componentDidMount() {
-    const { playerOne, playerTwo } = queryString.parse(this.props.location.search);
+    const { playerOne, playerTwo } = queryString.parse(
+      this.props.location.search
+    );
 
     battle([playerOne, playerTwo])
       .then((players) => {
@@ -70,10 +69,7 @@ class Results extends Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <Link 
-          className='btn dark-btn btn-space' 
-          to='/battle'
-        >
+        <Link className='btn dark-btn btn-space' to='/battle'>
           Reset
         </Link>
       </React.Fragment>
